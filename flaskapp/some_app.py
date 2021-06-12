@@ -94,7 +94,6 @@ def twist_image(file_name, choice):
     fig = plt.figure(figsize=(6, 4))
     ax = fig.add_subplot()
     data = np.random.randint(0, 255, (100, 100))
-    ax.imshow(im, cmap='plasma')
     b = ax.pcolormesh(data, edgecolors='black', cmap='plasma')
     fig.colorbar(b, ax=ax)
     gr_path = "./static/newgr.png"
@@ -105,6 +104,8 @@ def twist_image(file_name, choice):
     im = Image.open(file_name)
     x, y = im.size
     im = im.rotate(int(choice))
+    im[100:110,100:110]=(0,1,1)
+    ax.imshow(im)
     im.save(file_name)
 
  
