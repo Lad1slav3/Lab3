@@ -94,22 +94,11 @@ def twist_image(file_name, choice):
     fig = plt.figure(figsize=(6, 4))
     im = im.convert("RGB")
     ax = fig.add_subplot()
-    data = np.random.randint(0, 255, (100, 100))
-    b = ax.pcolormesh(data, edgecolors='black', cmap='plasma')
-    fig.colorbar(b, ax=ax)
-    gr_path = "./static/newgr.png"
-    sns.displot(data)
-    #plt.show()
-    plt.savefig(gr_path)
-    plt.close()
-    im = Image.open(file_name)
-    im = im.convert("RGB")
     x, y = im.size
-    im = im.rotate(int(choice))
     im[100:110,100:110]=(0,1.0,0)
     ax.imshow(im)
     im.save(file_name)
-
+    fig.show()
  
  
 @app.route("/iz", methods=['GET', 'POST'])
