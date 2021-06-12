@@ -54,8 +54,8 @@ SECRET_KEY = 'secret'
 app.config['SECRET_KEY'] = SECRET_KEY
 # используем капчу и полученные секретные ключи с сайта google 
 app.config['RECAPTCHA_USE_SSL'] = False
-app.config['RECAPTCHA_PUBLIC_KEY'] = '6LeOoycbAAAAAJDTxMMc2TZIxHg6LsB0MGpYFu5e'
-app.config['RECAPTCHA_PRIVATE_KEY'] = '6LeOoycbAAAAABNLNEx-iID-KSFU7ZqNGHOQIfTy'
+app.config['RECAPTCHA_PUBLIC_KEY'] = '6LdKayobAAAAABRFZ01xqgQFpdgxa9alAcQy1Z-1'
+app.config['RECAPTCHA_PRIVATE_KEY'] = '6LdKayobAAAAAPgmoavw3T_leVje_TMPhk0UCfcm'
 app.config['RECAPTCHA_OPTIONS'] = {'theme': 'white'}
 # обязательно добавить для работы со стандартными шаблонами
  
