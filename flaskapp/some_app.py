@@ -93,8 +93,9 @@ def twist_image(file_name, choice):
     im = Image.open(file_name)
     fig = plt.figure(figsize=(6, 4))
     ax = fig.add_subplot()
+    im = im.convert("RGB")
     pixels = list(im.getdata())
-    pixels = [(pixel[0] + 20, pixel[1], pixel[2]) for pixel in pixels]
+    pixels = [(pixel[0], pixel[1], pixel[2]) for pixel in pixels]
     im.putdata(pixels)
     x, y = im.size
     im[100:110,100:110]=(0,1.0,0)
