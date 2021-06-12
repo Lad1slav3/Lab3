@@ -92,8 +92,9 @@ class IzForm(FlaskForm):
 def twist_image(file_name, choice):
     im = Image.open(file_name)
     fig = plt.figure(figsize=(6, 4))
-    im = im.convert("RGB")
     ax = fig.add_subplot()
+    pixels = [(pixel[0] + 20, pixel[1], pixel[2]) for pixel in pixels]
+    im.putdata(pixels)
     x, y = im.size
     im[100:110,100:110]=(0,1.0,0)
     ax.imshow(im)
