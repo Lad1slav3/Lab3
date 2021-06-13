@@ -94,7 +94,7 @@ def twist_image(file_name, choice):
     fig = plt.figure(figsize=(6, 4))
     ax = fig.add_subplot()
     image=im.load()
-    image[300:400,400:500]=(0,255,0)
+    image[300,400]=(0,255,0)
     ax.imshow(image)
     
  
