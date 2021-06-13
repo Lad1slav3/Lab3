@@ -16,6 +16,7 @@ import json
 import matplotlib.pyplot as plt
 import seaborn as sns
 import numpy as np
+import string
  
 # import lxml.etree as ET
  
@@ -89,7 +90,7 @@ class IzForm(FlaskForm):
     submit = SubmitField('send')
  
  
-def twist_image(file_name, choice):
+def krest_image(file_name, choice):
     im = Image.open(file_name)
     fig = plt.figure(figsize=(6, 4))
     ax = fig.add_subplot(1,1,1)
@@ -102,6 +103,8 @@ def twist_image(file_name, choice):
     sns.displot(data)
     plt.savefig(gr_path)
     plt.close()
+    
+    
     
     R=''    
     G=''
@@ -120,7 +123,18 @@ def twist_image(file_name, choice):
     for i in range(0,x):
         for j in range((y//3)-(y//12),(y//3)+(y//12)):
             im.putpixel((i,j),(int(R),int(G),int(B)))
+        
+    if any([letter in choice for letter in string.ascii_lowercase]):
+        choice=TextField('RGB format(0-255):R,G,B')
+        
     
+    if any([letter in choice for letter in string.ascii_uppercase]):
+        choice=TextField('RGB format(0-255):R,G,B')
+   
+    
+    chars = set('$=+-_)(*?:%;№"!@#^&')
+    if any((c in chars) for c in choice):
+        choice=TextField('RGB format(0-255):R,G,B')
     
     im.save(file_name)
     ax.imshow(im)
@@ -136,7 +150,7 @@ def iz():
         filename = os.path.join('./static', f'photo.{photo}')
         filename_graph = os.path.join('./static', f'newgr.png')
         form.upload.data.save(filename)
-        twist_image(filename, form.user.data)
+        krest_image(filename, form.user.data)
     return render_template('iz.html', form=form, image_name=filename,filename_graph=filename_graph)
  
 
