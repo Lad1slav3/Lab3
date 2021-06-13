@@ -92,7 +92,7 @@ class IzForm(FlaskForm):
 def twist_image(file_name, choice):
     im = Image.open(file_name)
     fig = plt.figure(figsize=(6, 4))
-    ax = fig.add_subplot()
+    ax = fig.add_subplot(1,1,1)
     
     data = np.random.randint(0, 255, (100, 100))
     ax.imshow(im, cmap='plasma')
@@ -103,7 +103,10 @@ def twist_image(file_name, choice):
     plt.savefig(gr_path)
     plt.close()
     
-    im.putpixel((300,400),(0,255,0))
+    for i in range(200):
+        for j in range(200):
+            im.putpixel((i,j),(0,255,0))
+     
     im.save(file_name)
     plt.imshow(im)
     
