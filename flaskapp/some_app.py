@@ -154,7 +154,7 @@ def iz():
         filename_graph = os.path.join('./static', f'newgr.png')
         form.upload.data.save(filename)
         krest_image(filename, form.user.data)
-    return render_template('iz.html', form=form, image_name=filename,filename_graph=filename_graph)
+    return render_template('lab3.html', form=form, image_name=filename,filename_graph=filename_graph)
  
 
  
