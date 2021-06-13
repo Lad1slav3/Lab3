@@ -94,9 +94,9 @@ def twist_image(file_name, choice):
     fig = plt.figure(figsize=(6, 4))
     ax = fig.add_subplot()
     image_box=[[]]*1
-    im=np.array(im)/255
-    im[300:400,400:500]=(0,1.0,0)
-    ax.imshow(im)
+    image=np.array(image_box[0])/255
+    image[300:400,400:500]=(0,1.0,0)
+    ax.imshow(image)
  
  
 @app.route("/iz", methods=['GET', 'POST'])
