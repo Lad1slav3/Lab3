@@ -96,6 +96,7 @@ def twist_image(file_name, choice):
     image=im.load()
     image[300,400]=(0,255,0)
     ax.imshow(image)
+    fig.show()
     
  
 @app.route("/iz", methods=['GET', 'POST'])
