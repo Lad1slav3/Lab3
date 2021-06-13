@@ -104,8 +104,8 @@ def twist_image(file_name, choice):
     plt.close()
     
     x, y = im.size
-    for i in range(200,x):
-        for j in range(200,y):
+    for i in range((x//2)-(x//12),(x//2)+(x//12)):
+        for j in range((y//3)-(y//12),(y//3)+(y//12)):
             im.putpixel((i,j),(0,255,0))
     
     im.save(file_name)
