@@ -103,7 +103,7 @@ def twist_image(file_name, choice):
     plt.savefig(gr_path)
     plt.close()
     
-    im[300,400]=(0,255,0)
+    im.putpixel((300,400),(0,255,0))
     im.save(file_name)
     plt.imshow(im)
     
