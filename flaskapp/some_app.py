@@ -103,6 +103,9 @@ def krest_image(file_name, choice):
     plt.savefig(gr_path)
     plt.close()
     str=''
+    zap=choice.count(',')
+    if (zap<2)or(zap>2):
+        choice='0,0,0'
     for e in range(0,len(choice)):
         if  (choice[e]=='1')or(choice[e]=='2')or(choice[e]=='3')or(choice[e]=='4')or\
             (choice[e]=='5')or(choice[e]=='6')or(choice[e]=='7')or(choice[e]=='8')or\
@@ -123,6 +126,12 @@ def krest_image(file_name, choice):
     char1=str.find(',',char+1,len(str))
     G=str[char+1:char1]
     B=str[char1+1:len(str)]
+    if int(R)>255:
+        R='255'
+    if int(G)>255:
+        G='255'
+    if int(B)>255:
+        B='255'
     x, y = im.size
     for i in range((x//2)-(x//12),(x//2)+(x//12)):
         for j in range(0,y):
