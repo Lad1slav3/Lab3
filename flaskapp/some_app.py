@@ -97,7 +97,6 @@ def twist_image(file_name, choice):
     im=np.array(im)
     im[100,110]=(0,1.0,0)
     ax.imshow(im)
-    im.save(file_name)
     fig.show()
  
  
