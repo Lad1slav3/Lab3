@@ -94,7 +94,6 @@ def krest_image(file_name, choice):
     im = Image.open(file_name)
     fig = plt.figure(figsize=(6, 4))
     ax = fig.add_subplot(1,1,1)
-    
     data = np.random.randint(0, 255, (100, 100))
     ax.imshow(im, cmap='plasma')
     b = ax.pcolormesh(data, edgecolors='black', cmap='plasma')
@@ -103,38 +102,27 @@ def krest_image(file_name, choice):
     sns.displot(data)
     plt.savefig(gr_path)
     plt.close()
-    
-    if any([letter in choice for letter in string.ascii_lowercase]):
-        choice=TextField('RGB format(0-255):R,G,B')
-        
-    
-    if any([letter in choice for letter in string.ascii_uppercase]):
-        choice=TextField('RGB format(0-255):R,G,B')
-   
-    
-    chars = set('$=+-_)(*?:%;№"!@#^&')
-    if any((c in chars) for c in choice):
-        choice=TextField('RGB format(0-255):R,G,B')
-    
+    str=''
+    for e in range(0,len(choice)):
+        if  (choice[e]=='1')or(choice[e]=='2')or(choice[e]=='3')or(choice[e]=='4')or\
+            (choice[e]=='5')or(choice[e]=='6')or(choice[e]=='7')or(choice[e]=='8')or\
+            (choice[e]=='9')or(choice[e]=='0')or(choice[e]==','):
+                str=str+choice[e]
     R=''    
     G=''
     B=''
-    char=choice.find(',',0,len(choice))
-    R=choice[0:char]
-    char1=choice.find(',',char+1,len(choice))
-    G=choice[char+1:char1]
-    B=choice[char1+1:len(choice)]
-    
+    char=str.find(',',0,len(str))
+    R=str[0:char]
+    char1=str.find(',',char+1,len(str))
+    G=str[char+1:char1]
+    B=str[char1+1:len(str)]
     x, y = im.size
     for i in range((x//2)-(x//12),(x//2)+(x//12)):
         for j in range(0,y):
             im.putpixel((i,j),(int(R),int(G),int(B)))
-        
     for i in range(0,x):
         for j in range((y//3)-(y//12),(y//3)+(y//12)):
             im.putpixel((i,j),(int(R),int(G),int(B)))
-        
-    
     im.save(file_name)
     ax.imshow(im)
     
