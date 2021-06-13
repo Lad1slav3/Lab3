@@ -103,10 +103,9 @@ def twist_image(file_name, choice):
     plt.savefig(gr_path)
     plt.close()
     
-    image=im.load()
-    image[300,400]=(0,255,0)
+    im[300,400]=(0,255,0)
     im.save(file_name)
-    plt.imshow(image)
+    plt.imshow(im)
     
  
 @app.route("/iz", methods=['GET', 'POST'])
