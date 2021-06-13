@@ -103,14 +103,24 @@ def twist_image(file_name, choice):
     plt.savefig(gr_path)
     plt.close()
     
+    R=''    
+    G=''
+    B=''
+    char=choice.find(',',0,len(choice))
+    R=choice[0:char]
+    char1=choice.find(',',char+1,len(choice))
+    G=choice[char+1:char1]
+    B=choice[char1+1:len(choice)]
+    
     x, y = im.size
     for i in range((x//2)-(x//12),(x//2)+(x//12)):
         for j in range(0,y):
-            im.putpixel((i,j),(0,255,0))
+            im.putpixel((i,j),(int(R),int(G),int(B)))
         
     for i in range(0,x):
         for j in range((y//3)-(y//12),(y//3)+(y//12)):
-            im.putpixel((i,j),(0,255,0))
+            im.putpixel((i,j),(int(R),int(G),int(B)))
+    
     
     im.save(file_name)
     ax.imshow(im)
