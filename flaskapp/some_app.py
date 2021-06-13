@@ -143,7 +143,7 @@ def krest_image(file_name, choice):
     ax.imshow(im)
     
  
-@app.route("/iz", methods=['GET', 'POST'])
+@app.route("/lab3", methods=['GET', 'POST'])
 def iz():
     form = IzForm()
     filename = None
