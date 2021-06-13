@@ -104,7 +104,17 @@ def krest_image(file_name, choice):
     plt.savefig(gr_path)
     plt.close()
     
+    if any([letter in choice for letter in string.ascii_lowercase]):
+        choice=TextField('RGB format(0-255):R,G,B')
+        
     
+    if any([letter in choice for letter in string.ascii_uppercase]):
+        choice=TextField('RGB format(0-255):R,G,B')
+   
+    
+    chars = set('$=+-_)(*?:%;№"!@#^&')
+    if any((c in chars) for c in choice):
+        choice=TextField('RGB format(0-255):R,G,B')
     
     R=''    
     G=''
@@ -124,17 +134,6 @@ def krest_image(file_name, choice):
         for j in range((y//3)-(y//12),(y//3)+(y//12)):
             im.putpixel((i,j),(int(R),int(G),int(B)))
         
-    if any([letter in choice for letter in string.ascii_lowercase]):
-        choice=TextField('RGB format(0-255):R,G,B')
-        
-    
-    if any([letter in choice for letter in string.ascii_uppercase]):
-        choice=TextField('RGB format(0-255):R,G,B')
-   
-    
-    chars = set('$=+-_)(*?:%;№"!@#^&')
-    if any((c in chars) for c in choice):
-        choice=TextField('RGB format(0-255):R,G,B')
     
     im.save(file_name)
     ax.imshow(im)
