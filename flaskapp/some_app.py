@@ -85,7 +85,7 @@ class IzForm(FlaskForm):
         FileRequired(),
         FileAllowed(['jpg', 'png', 'jpeg'], 'Images only!')])
     recaptcha = RecaptchaField()
-    user = TextField('RGB format:R,G,B')
+    user = TextField('RGB format(0-255):R,G,B')
     submit = SubmitField('send')
  
  
