@@ -108,6 +108,13 @@ def krest_image(file_name, choice):
             (choice[e]=='5')or(choice[e]=='6')or(choice[e]=='7')or(choice[e]=='8')or\
             (choice[e]=='9')or(choice[e]=='0')or(choice[e]==','):
                 str=str+choice[e]
+    zap=str.count(',')
+    if zap==0:
+        str=str+',0,0'
+    if (zap==0)and(len(choice)==0):
+        str='0,0,0'
+    if zap==1:
+        str=str+',0'
     R=''    
     G=''
     B=''
