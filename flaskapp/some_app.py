@@ -86,7 +86,7 @@ class IzForm(FlaskForm):
         FileRequired(),
         FileAllowed(['jpg', 'png', 'jpeg'], 'Images only!')])
     recaptcha = RecaptchaField()
-    user = TextField('RGB format(0-255):R,G,B')
+    user = TextField('RGB (0-255) + width (1 min) format : R,G,B,width')
     submit = SubmitField('send')
  
  
@@ -102,22 +102,23 @@ def krest_image(file_name, choice):
     sns.displot(data)
     plt.savefig(gr_path)
     plt.close()
+    
     str=''
     zap=choice.count(',')
-    if (zap<2)or(zap>2):
-        choice='0,0,0'
+    if zap==0:
+        choice=choice+',0,0,1'
+    if (zap==0)and(len(choice)==0):
+        choice='0,0,0,1'
+    if zap==1:
+        choice=choice+',0,1'
+    if zap==2:
+        choice=choice+',1'
     for e in range(0,len(choice)):
         if  (choice[e]=='1')or(choice[e]=='2')or(choice[e]=='3')or(choice[e]=='4')or\
             (choice[e]=='5')or(choice[e]=='6')or(choice[e]=='7')or(choice[e]=='8')or\
             (choice[e]=='9')or(choice[e]=='0')or(choice[e]==','):
                 str=str+choice[e]
-    zap=str.count(',')
-    if zap==0:
-        str=str+',0,0'
-    if (zap==0)and(len(choice)==0):
-        str='0,0,0'
-    if zap==1:
-        str=str+',0'
+    W=''
     R=''    
     G=''
     B=''
@@ -125,19 +126,38 @@ def krest_image(file_name, choice):
     R=str[0:char]
     char1=str.find(',',char+1,len(str))
     G=str[char+1:char1]
-    B=str[char1+1:len(str)]
+    char2=str.find(',',char1+1,len(str))
+    B=str[char1+1:char2]
+    W=str[char2+1:len(str)]
+    str=''
+    zap=W.count(',')
+    if zap>0:
+        str=W[0:W.find(',',0,len(W))]
+        W=''
+        W=str
     if int(R)>255:
         R='255'
     if int(G)>255:
         G='255'
     if int(B)>255:
         B='255'
+    if int(W)==0:
+        W='1'
     x, y = im.size
-    for i in range((x//2)-(x//12),(x//2)+(x//12)):
+    
+    if int(W)>(x//2):
+        W=''
+        W=str(x//2)
+    if int(W)>(y//3):
+        W=''
+        W=str(y//3)
+    
+    for i in range((x//2)-int(W),(x//2)+int(W)):
         for j in range(0,y):
             im.putpixel((i,j),(int(R),int(G),int(B)))
+    
     for i in range(0,x):
-        for j in range((y//3)-(y//12),(y//3)+(y//12)):
+        for j in range((y//3)-int(W),(y//3)+int(W)):
             im.putpixel((i,j),(int(R),int(G),int(B)))
     im.save(file_name)
     ax.imshow(im)
