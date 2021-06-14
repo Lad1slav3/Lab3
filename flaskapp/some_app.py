@@ -86,11 +86,12 @@ class IzForm(FlaskForm):
         FileRequired(),
         FileAllowed(['jpg', 'png', 'jpeg'], 'Images only!')])
     recaptcha = RecaptchaField()
-    user = TextField('RGB (0-255) + width (2 min) format : R,G,B,width')
+    user = TextField('RGB (0-255) format : R,G,B')
+    width=TextField('Width (in pixels, 2 min) format : width')
     submit = SubmitField('send')
  
  
-def krest_image(file_name, choice):
+def krest_image(file_name, choice, choice1):
     im = Image.open(file_name)
     fig = plt.figure(figsize=(6, 4))
     ax = fig.add_subplot(1,1,1)
@@ -104,20 +105,36 @@ def krest_image(file_name, choice):
     plt.close()
     
     stroka=''
-    zap=choice.count(',')
-    if zap==0:
-        choice=choice+',0,0,2'
-    if (zap==0)and(len(choice)==0):
-        choice='0,0,0,2'
-    if zap==1:
-        choice=choice+',0,2'
-    if zap==2:
-        choice=choice+',2'
     for e in range(0,len(choice)):
         if  (choice[e]=='1')or(choice[e]=='2')or(choice[e]=='3')or(choice[e]=='4')or\
             (choice[e]=='5')or(choice[e]=='6')or(choice[e]=='7')or(choice[e]=='8')or\
             (choice[e]=='9')or(choice[e]=='0')or(choice[e]==','):
                 stroka=stroka+choice[e]
+        
+    zap=stroka.count(',')
+    if zap==0:
+        stroka=stroka+',0,0'
+    if (zap==0)and(len(stroka)==0):
+        stroka='0,0,0'
+    if zap==1:
+        stroka=stroka+',0'
+    stroka1=''
+      
+    for e in range(0,len(choice1)):
+        if  (choice1[e]=='1')or(choice1[e]=='2')or(choice1[e]=='3')or(choice1[e]=='4')or\
+            (choice1[e]=='5')or(choice1[e]=='6')or(choice1[e]=='7')or(choice1[e]=='8')or\
+            (choice1[e]=='9')or(choice1[e]=='0'):
+                stroka1=stroka1+choice1[e]
+        
+    if len(stroka1)==0:
+        stroka1='2'
+      
+    if int(stroka1)<2:
+        stroka1='2'
+   
+    stroka=stroka+','
+    stroka=stroka+stroka1
+      
     W=''
     R=''    
     G=''
@@ -173,7 +190,7 @@ def iz():
         filename = os.path.join('./static', f'photo.{photo}')
         filename_graph = os.path.join('./static', f'newgr.png')
         form.upload.data.save(filename)
-        krest_image(filename, form.user.data)
+        krest_image(filename, form.user.data, form.width.data)
     return render_template('lab3.html', form=form, image_name=filename,filename_graph=filename_graph)
  
 
