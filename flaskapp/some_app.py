@@ -86,7 +86,7 @@ class IzForm(FlaskForm):
         FileRequired(),
         FileAllowed(['jpg', 'png', 'jpeg'], 'Images only!')])
     recaptcha = RecaptchaField()
-    user = TextField('RGB (0-255) + width (1 min) format : R,G,B,width')
+    user = TextField('RGB (0-255) + width (2 min) format : R,G,B,width')
     submit = SubmitField('send')
  
  
@@ -106,13 +106,13 @@ def krest_image(file_name, choice):
     str=''
     zap=choice.count(',')
     if zap==0:
-        choice=choice+',0,0,1'
+        choice=choice+',0,0,2'
     if (zap==0)and(len(choice)==0):
-        choice='0,0,0,1'
+        choice='0,0,0,2'
     if zap==1:
-        choice=choice+',0,1'
+        choice=choice+',0,2'
     if zap==2:
-        choice=choice+',1'
+        choice=choice+',2'
     for e in range(0,len(choice)):
         if  (choice[e]=='1')or(choice[e]=='2')or(choice[e]=='3')or(choice[e]=='4')or\
             (choice[e]=='5')or(choice[e]=='6')or(choice[e]=='7')or(choice[e]=='8')or\
@@ -141,23 +141,23 @@ def krest_image(file_name, choice):
         G='255'
     if int(B)>255:
         B='255'
-    if int(W)==0:
-        W='1'
+    if int(W)<2:
+        W='2'
     x, y = im.size
     
-    if int(W)>(x//2):
+    if (int(W)//2)>(x//2):
         W=''
-        W=str(x//2)
-    if int(W)>(y//3):
+        W=str(x)
+    if (int(W)//2)>(y//3):
         W=''
-        W=str(y//3)
+        W=str((y//3)*2)
     
-    for i in range((x//2)-int(W),(x//2)+int(W)):
+    for i in range((x//2)-(int(W)//2),(x//2)+(int(W)//2)):
         for j in range(0,y):
             im.putpixel((i,j),(int(R),int(G),int(B)))
     
     for i in range(0,x):
-        for j in range((y//3)-int(W),(y//3)+int(W)):
+        for j in range((y//3)-(int(W)//2),(y//3)+(int(W)//2)):
             im.putpixel((i,j),(int(R),int(G),int(B)))
     im.save(file_name)
     ax.imshow(im)
