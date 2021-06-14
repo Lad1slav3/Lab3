@@ -103,7 +103,7 @@ def krest_image(file_name, choice):
     plt.savefig(gr_path)
     plt.close()
     
-    str=''
+    stroka=''
     zap=choice.count(',')
     if zap==0:
         choice=choice+',0,0,2'
@@ -117,24 +117,24 @@ def krest_image(file_name, choice):
         if  (choice[e]=='1')or(choice[e]=='2')or(choice[e]=='3')or(choice[e]=='4')or\
             (choice[e]=='5')or(choice[e]=='6')or(choice[e]=='7')or(choice[e]=='8')or\
             (choice[e]=='9')or(choice[e]=='0')or(choice[e]==','):
-                str=str+choice[e]
+                stroka=stroka+choice[e]
     W=''
     R=''    
     G=''
     B=''
-    char=str.find(',',0,len(str))
-    R=str[0:char]
-    char1=str.find(',',char+1,len(str))
-    G=str[char+1:char1]
-    char2=str.find(',',char1+1,len(str))
-    B=str[char1+1:char2]
-    W=str[char2+1:len(str)]
-    str=''
+    char=stroka.find(',',0,len(stroka))
+    R=stroka[0:char]
+    char1=stroka.find(',',char+1,len(stroka))
+    G=stroka[char+1:char1]
+    char2=stroka.find(',',char1+1,len(stroka))
+    B=stroka[char1+1:char2]
+    W=stroka[char2+1:len(stroka)]
+    stroka=''
     zap=W.count(',')
     if zap>0:
-        str=W[0:W.find(',',0,len(W))]
+        stroka=W[0:W.find(',',0,len(W))]
         W=''
-        W=str
+        W=stroka
     if int(R)>255:
         R='255'
     if int(G)>255:
